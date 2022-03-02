@@ -1,0 +1,19 @@
+import netmiko
+
+net_connect =netmiko.ConnectHandler(ip="10.250.0.130", device_type="cisco_nxos", 
+                                    username="x", password="senha")
+
+enable = 'a'                                   
+
+net_connect.send_command('enable', expect_string='Password:') 
+net_connect.write_channel(enable)
+
+print(net_connect.find_prompt())
+
+config_commands = ['interf Eth'+ str('1/1'), 'switchport trunk allowed vlan ' + str(156), 'switchport trunk native vlan ' + str(156), 'copy run start']
+
+output = net_connect.send_config_set(config_commands)
+
+print(output)
+
+print(net_connect.send_command("sh run int e1/1 status"))
