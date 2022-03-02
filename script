@@ -17,3 +17,5 @@ output = net_connect.send_config_set(config_commands)
 print(output)
 
 print(net_connect.send_command("sh run int e1/1 status"))
+
+net_connect.disconnect()
